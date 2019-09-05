@@ -15,6 +15,8 @@ import { AuthGuardService } from './guards/auth.guard.service';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
+import { EditClienteComponent } from './clientes/edit-cliente/edit-cliente.component';
 
 @NgModule({
   declarations: [
@@ -24,20 +26,23 @@ import { PedidosComponent } from './pedidos/pedidos.component';
     NavbarComponent,
     ClientesComponent,
     ProdutosComponent,
-    PedidosComponent
+    PedidosComponent,
+    EditClienteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ConfirmDialogModule
   ],
   providers: [ApiService, {provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true},
     NavbarService,
-    AuthGuardService
+    AuthGuardService,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })

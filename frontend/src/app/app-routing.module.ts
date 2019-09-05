@@ -6,6 +6,7 @@ import { AuthGuardService } from './guards/auth.guard.service';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { EditClienteComponent } from './clientes/edit-cliente/edit-cliente.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
   { path: 'clientes', component: ClientesComponent, canActivate: [AuthGuardService] },
   { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuardService] },
-  { path: 'pedidos', component: PedidosComponent, canActivate: [AuthGuardService] }
+  { path: 'pedidos', component: PedidosComponent, canActivate: [AuthGuardService] },
+  { path: 'clientes/novo', component: EditClienteComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({
