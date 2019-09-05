@@ -27,4 +27,8 @@ export class ApiService {
     return this.http.get<Cliente>(`${this.baseUrl}/clientes/${id}`);
   }
 
+  buscarProdutos(descricao: string) {
+    return this.http.get(`${this.baseUrl}/produtos?q=${descricao}`);
+  }
+
 }

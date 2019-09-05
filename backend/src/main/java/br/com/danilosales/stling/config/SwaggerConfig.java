@@ -37,7 +37,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 				.securityContexts(Lists.newArrayList(securityContext()))
 				.securitySchemes(Lists.newArrayList(apiKey()))
 				.tags(new Tag( "Autenticação", "Métodos de autenticação dos serviços"),
-						new Tag( "Clientes", "Métodos para manipulação de clientes"));
+						new Tag( "Clientes", "Métodos para manipulação de clientes"),
+						new Tag( "Produtos", "Métodos para busca de produtos"));
 	}
 
 	private SecurityContext securityContext() {
