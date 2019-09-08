@@ -1,0 +1,89 @@
+<div class="container">
+    <h2 class="text-center">{{ isNovo ? "Novo Pedido" : "Editar Pedido" }}</h2>
+    <form>
+      <div *ngIf="erroSalvar" class="error">
+        <div>{{erroSalvar}}</div>
+      </div>
+      <div class="hidden">
+        <input type="text" [(ngModel)]="pedido.id" placeholder="id" name="id" class="form-control" id="id" [ngModelOptions]="{standalone: true}">
+        <input type="text" [(ngModel)]="pedido.vendedorId" placeholder="id" name="id" class="form-control" id="id" [ngModelOptions]="{standalone: true}">
+      </div>
+
+      <div class="text-right" style="margin: 20px 0px">
+        <button class="btn btn-secondary" type="submit" (click)="salvarPedido()">Salvar</button>
+        <button class="btn btn-success" type="submit" (click)="finalizarPedido()" style="margin-left: 10px">Finalizar</button>
+      </div>
+
+      <div class="text-right">
+        <p style="font-size: 1.3em;">
+          <span class="font-weight-bold">Valor total: </span> R$ {{totalPedido.toFixed(2)}}
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="cliente">Cliente:</label>
+        <select class="form-control" [(ngModel)]="pedido.clienteId" [ngModelOptions]="{standalone: true}" id="cliente" required>
+          <option value="" disabled>Escolha um cliente</option>
+          <option *ngFor="let cliente of clientes" value="{{cliente.id}}">{{cliente.nome}}</option>
+        </select>
+        <div class="error" *ngIf="">Cliente é obrigatório</div>
+      </div>
+
+      <br>
+
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active">Produtos</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane show active">
+          <div class="row">
+            <div class="form-group col-lg-12">
+                <label for="produto">Produto:</label>
+              <input type="text" class="form-control" [formControl]="inputSearch" [appAutocomplete]="autocomplete">
+              <app-autocomplete #autocomplete="appAutocomplete">
+                <ng-template appAutocompleteContent>
+                  <app-option class="no-result" *ngIf="isLoading">Buscando...</app-option>
+                  <ng-container *ngIf="!isLoading">
+                    <app-option *ngFor="let prod of produtos" [value]="prod.descricao" (click)="selecionaProduto(prod)" >
+                      {{prod.id}} - {{prod.descricao}}
+                    </app-option>
+                  </ng-container>
+                </ng-template>
+              </app-autocomplete>
+            </div>
+          </div>
+
+          <div class="tabela-produtos">
+            <div *ngFor="let item of pedido.itens">
+              <div class="tabela-item-produto">
+                  <div class="tabela-item-produto-coluna tabela-item-produto-detalhes">
+                    <span class="tabela-item-produto-nome">{{item.produtoDescricao}}</span>
+                    <span class="label label-default">{{item.produtoId}}</span>
+                  </div>
+
+                  <div class="tabela-item-produto-coluna tabela-item-produto-valores">
+                    <div class="tabela-item-produto-valor-pequeno">
+                      <input type="number" min="1" max="999999" class="tabela-item-produto-quantidade" (change)="atualizarValor(item)" [(ngModel)]="item.quantidade" [ngModelOptions]="{standalone: true}"/>
+                      <span>x R$ {{item.produtoValor.toFixed(2)}}</span>
+                    </div>
+                    <div class="tabela-item-produto-valor-grande">R$ {{item.totalItem.toFixed(2)}}</div>
+                  </div>
+
+                  <div class="tabela-item-produto-coluna tabela-item-produto-excluir">
+                    <button type="button" class="btn btn-danger" (click)="excluirItem(item)">Excluir</button>
+                  </div>
+                </div>
+              </div>
+              <div class="tabela-produtos-vazio" *ngIf="pedido.itens.length === 0">
+                <i class="glyphicon  glyphicon-shopping-cart"></i>
+                <span>Você ainda não adicionou nenhuma produto.</span>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+    <br>
+  </div>

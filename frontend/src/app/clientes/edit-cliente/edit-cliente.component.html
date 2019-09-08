@@ -1,0 +1,30 @@
+<div class="col-md-6 container">
+    <h2 class="text-center">{{ isNovo ? "Novo Usuário" : "Editar Usuário" }}</h2>
+    <form [formGroup]="formCliente" (ngSubmit)="salvar()">
+      <div *ngIf="erroSalvar" class="error">
+        <div>{{erroSalvar}}</div>
+      </div>
+      <div class="hidden">
+        <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
+      </div>
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" formControlName="nome" placeholder="Nome" name="nome" class="form-control" id="nome">
+        <div class="error" *ngIf="formCliente.controls['nome'].hasError('required') && submitted">Nome é obrigatório</div>
+      </div>
+
+      <div class="form-group">
+        <label for="cpfCnpj">CPF/CNPJ:</label>
+        <input formControlName="cpfCnpj" placeholder="CPF/CNPJ" name="cpfCnpj" class="form-control" id="cpfCnpj">
+        <div class="error" *ngIf="formCliente.controls['cpfCnpj'].hasError('required') && submitted">CPF/CNPJ é obrigatório</div>
+      </div>
+
+      <div class="form-group">
+        <label for="endereco">Endereço:</label>
+        <input formControlName="endereco" placeholder="Endereço" name="endereco" class="form-control" id="endereco">
+        <div class="error" *ngIf="formCliente.controls['endereco'].hasError('required') && submitted">Endereço é obrigatório</div>
+      </div>
+
+      <button class="btn btn-success">Salvar</button>
+    </form>
+  </div>

@@ -1,0 +1,50 @@
+<div class="container">
+    <h2 style="margin: auto">Pedidos</h2>
+      <br />
+      <button class="btn btn-primary" (click)="novoPedido()">Novo Pedido</button>
+      <br />
+      <br />
+      <form [formGroup]="pedidosForm" (ngSubmit)="buscar()">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" formControlName="campoBusca" placeholder="Nome do cliente ou vendedor" name="campoBusca" class="form-control" id="campoBusca">
+              <div class="input-group-append" style="margin-left: 10px;">
+                <button class="btn btn-primary" type="submit">Buscar</button>
+              </div>
+            </div>
+          </div>
+          <div class="error" *ngIf="pedidosForm.controls['campoBusca'].hasError('required') && submitted">Informe algo para pesquisar</div>
+        </form>
+        <br />
+        <br />
+      <table class="table table-striped" *ngIf="pedidos && pedidos.length > 0">
+        <thead>
+          <tr>
+            <th width="10%">Id</th>
+            <th width="25%">Cliente</th>
+            <th width="25%">Vendedor</th>
+            <th width="10%">Qtd. Itens</th>
+            <th width="10%">Total</th>
+            <th width="20%">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pedido of pedidos">
+            <td>{{pedido.id}}</td>
+            <td>{{pedido.nomeCliente}}</td>
+            <td>{{pedido.nomeVendedor}}</td>
+            <td>{{pedido.totalItens}}</td>
+            <td>{{pedido.valorTotal}}</td>
+            <td>
+              <button class="btn btn-success" [disabled]="pedido.pedidoFinalizado" (click)="editPedido(pedido)">Editar</button>
+              <button class="btn btn-danger" [disabled]="pedido.pedidoFinalizado" (click)="excluirPedido(pedido)" style="margin-left: 10px;">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ui-g-12 ui-md-8" *ngIf="pedidos.length === 0 && buscouServico">
+          <label>Não foi encontrado nenhum pedido para os parâmetros informados</label>
+        </div>
+      <br />
+      <app-confirm-dialog></app-confirm-dialog>
+  </div>

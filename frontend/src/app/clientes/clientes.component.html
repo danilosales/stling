@@ -1,0 +1,29 @@
+<div class="container">
+  <h2 style="margin: auto">Lista de Clientes</h2>
+    <br />
+    <button class="btn btn-primary" (click)="addCliente()">Novo Cliente</button>
+    <br />
+    <br />
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="hidden">Id</th>
+          <th width="60%">Nome</th>
+          <th width="20%">Cpf/CNPJ</th>
+          <th width="20%">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td class="hidden"></td>
+          <td>{{cliente.nome}}</td>
+          <td>{{cliente.cpfCnpj}}</td>
+          <td>
+            <button class="btn btn-success" (click)="editCliente(cliente)" style="margin-left: 20px;">Editar</button>
+            <button class="btn btn-danger" (click)="deleteCliente(cliente)" style="margin-left: 20px;">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-confirm-dialog></app-confirm-dialog>
+</div>

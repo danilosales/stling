@@ -1,0 +1,7 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F5F5;
+  margin: 2em auto auto;
+  padding: 2em;
+}

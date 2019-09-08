@@ -1,0 +1,41 @@
+<main class="container">
+    <section>
+        <h2 class="ui-h2-style">Consultar Produtos</h2>
+        <br />
+        <form [formGroup]="produtosForm" (ngSubmit)="buscar()">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" formControlName="campoBusca" placeholder="Código ou descrição" name="campoBusca" class="form-control" id="campoBusca">
+              <div class="input-group-append" style="margin-left: 10px;">
+                <button class="btn btn-primary" type="submit">Buscar</button>
+              </div>
+            </div>
+          </div>
+          <div class="error" *ngIf="produtosForm.controls['campoBusca'].hasError('required') && submitted">Informe algo para pesquisar</div>
+        </form>
+        <br />
+        <br />
+        <div class="ui-g-12 ui-md-8" *ngIf="produtos">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th width="20%">Código</th>
+                    <th width="60%">Descrição</th>
+                    <th width="20%">Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let produto of produtos">
+                    <td>{{produto.id}}</td>
+                    <td>{{produto.descricao}}</td>
+                    <td>R$ {{produto.valor.toFixed(2)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div class="ui-g-12 ui-md-8" *ngIf="!produtos && buscouServico">
+          <label>Não foi encontrada nenhum produto para os parametros informados</label>
+        </div>
+        <br />
+    </section>
+  </main>
