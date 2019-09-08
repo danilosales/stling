@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.danilosales.stling.dto.JwtTokenRequest;
 import br.com.danilosales.stling.dto.JwtTokenResponse;
 import br.com.danilosales.stling.security.JwtTokenUtil;
+import br.com.danilosales.stling.security.JwtUserDetails;
 import br.com.danilosales.stling.security.exception.AuthenticationException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,13 +58,14 @@ public class AuthenticationController {
 			throw new AuthenticationException("Credenciais inválidas");
 		}
 
-		UserDetails userDetails = this.userDetailsService.loadUserByUsername(tokenRequest.getUsername());
+		JwtUserDetails userDetails = (JwtUserDetails) this.userDetailsService.loadUserByUsername(tokenRequest.getUsername());
 
 		String token = this.jwtTokenUtil.generateToken(userDetails);
 
 		Map<String, String> result = new HashMap<>();
 		result.put("token", token);
 		result.put("username", userDetails.getUsername());
+		result.put("usuarioId", userDetails.getUsuario().getId().toString());
 		return ResponseEntity.ok(new JwtTokenResponse(200, "OK", result));
 	}
 

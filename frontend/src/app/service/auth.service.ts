@@ -29,4 +29,7 @@ export class AuthService {
     return localStorage.getItem('token') != null;
   }
 
+  getUsuarioId(): number {
+    return +localStorage.getItem('usuarioId');
+  }
 }

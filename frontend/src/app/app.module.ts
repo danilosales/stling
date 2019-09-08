@@ -1,5 +1,7 @@
+import { AutocompleteModule } from './components/autocomplete/autocomplete.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +19,10 @@ import { ProdutosComponent } from './produtos/produtos.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
 import { EditClienteComponent } from './clientes/edit-cliente/edit-cliente.component';
+import { EditPedidoComponent } from './pedidos/edit-pedido/edit-pedido.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
+import { OptionComponent } from './components/autocomplete/option/option.component';
 
 @NgModule({
   declarations: [
@@ -27,15 +33,20 @@ import { EditClienteComponent } from './clientes/edit-cliente/edit-cliente.compo
     ClientesComponent,
     ProdutosComponent,
     PedidosComponent,
-    EditClienteComponent
+    EditClienteComponent,
+    EditPedidoComponent,
+    OptionComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    OverlayModule,
+    BrowserAnimationsModule,
+    AutocompleteModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
   ],
   providers: [ApiService, {provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
@@ -44,6 +55,7 @@ import { EditClienteComponent } from './clientes/edit-cliente/edit-cliente.compo
     AuthGuardService,
     ApiService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AutocompleteComponent]
 })
 export class AppModule { }

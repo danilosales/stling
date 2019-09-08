@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/index';
 import { ApiResponse } from '../model/api.response';
 import { Cliente } from '../model/Cliente';
+import { Pedido } from '../model/Pedido';
 
 @Injectable()
 export class ApiService {
@@ -29,6 +30,26 @@ export class ApiService {
 
   buscarProdutos(descricao: string) {
     return this.http.get(`${this.baseUrl}/produtos?q=${descricao}`);
+  }
+
+  buscarPedidos(nome: string) {
+    return this.http.get(`${this.baseUrl}/pedidos?q=${nome}`);
+  }
+
+  buscarPedidoPorId(id: number) {
+    return this.http.get(`${this.baseUrl}/pedidos/${id}`);
+  }
+
+  excluirPedido(id: number) {
+    return this.http.delete(`${this.baseUrl}/pedidos/${id}`);
+  }
+
+  salvarPedido(pedido: Pedido) {
+    return this.http.post(`${this.baseUrl}/pedidos`, pedido);
+  }
+
+  atualizarPedido(pedido: Pedido) {
+    return this.http.put(`${this.baseUrl}/pedidos/${pedido.id}`, pedido);
   }
 
 }

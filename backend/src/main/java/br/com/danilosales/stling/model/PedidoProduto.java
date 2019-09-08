@@ -1,5 +1,7 @@
 package br.com.danilosales.stling.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +28,10 @@ public class PedidoProduto {
 	
 	private Integer quantidade;
 
+	public BigDecimal getValorTotal() {
+		return this.produto.getValor().multiply(new BigDecimal(quantidade));
+	}
+	
 	public Integer getId() {
 		return id;
 	}

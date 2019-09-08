@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     this.apiService.login(loginData).subscribe(
       data => {
         localStorage.setItem('token', data.result.token);
+        localStorage.setItem('usuarioId', data.result.usuarioId);
         this.router.navigate(['home']);
       },
       error => {

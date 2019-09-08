@@ -7,6 +7,7 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { ProdutosComponent } from './produtos/produtos.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { EditClienteComponent } from './clientes/edit-cliente/edit-cliente.component';
+import { EditPedidoComponent } from './pedidos/edit-pedido/edit-pedido.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'clientes', component: ClientesComponent, canActivate: [AuthGuardService] },
   { path: 'produtos', component: ProdutosComponent, canActivate: [AuthGuardService] },
   { path: 'pedidos', component: PedidosComponent, canActivate: [AuthGuardService] },
+  { path: 'pedidos/novo', component: EditPedidoComponent, canActivate: [AuthGuardService] },
   { path: 'clientes/novo', component: EditClienteComponent, canActivate: [AuthGuardService] }
 ];
 

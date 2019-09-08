@@ -1,13 +1,8 @@
 package br.com.danilosales.stling.service;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.danilosales.stling.model.Usuario;
 import br.com.danilosales.stling.repository.UsuarioRepository;
+import br.com.danilosales.stling.security.JwtUserDetails;
 import br.com.danilosales.stling.security.exception.AuthenticationException;
 
 @Service
@@ -37,11 +33,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			throw new AuthenticationException("Usuário não tem permissão de acesso");
 		}
 
-		return new User(usuario.getEmail(), usuario.getSenha(), getAuthorities(usuario));
-	}
-
-	private Collection<? extends GrantedAuthority> getAuthorities(Usuario usuario) {
-		return Arrays.asList(new SimpleGrantedAuthority(usuario.getTipo().getDescricao()));
+		return new JwtUserDetails(usuario);
 	}
 	
 }
