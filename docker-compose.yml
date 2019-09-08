@@ -1,0 +1,29 @@
+version: '3.5'
+
+services: 
+  mysql-stling:
+   container_name: mysql-stling
+   image: mysql/mysql-server:5.7
+   environment:
+    MYSQL_DATABASE: stling
+    MYSQL_ROOT_PASSWORD: Master01
+    MYSQL_ROOT_HOST: '%'
+   ports:
+   - "3306:3306"
+   restart: always
+
+  stling-backend:
+    build: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-stling
+
+  stling-frontend:
+    build: frontend
+    depends_on:
+        - stling-backend
+    ports:
+        - 4200:4200
+    links:
+      - stling-backend:stling-backend
